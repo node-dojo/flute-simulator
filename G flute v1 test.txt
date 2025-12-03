@@ -1,0 +1,92 @@
+G FLUTE V1 TEST SPECIFICATIONS
+================================
+
+STARTING PIPE SPECIFICATIONS:
+- Length: 350mm (0.35m)
+- Inner Diameter: 31mm (0.031m)
+- Wall Thickness: 2mm (0.002m)
+- Material: (To be specified)
+
+TARGET SPECIFICATIONS:
+- Key: G4 (G in the 4th octave)
+- Fundamental Frequency: 392 Hz
+- Speed of Sound: 343 m/s (at 20°C)
+
+CALCULATED DIMENSIONS:
+- Required Acoustic Length (Leff): 219mm
+- End Correction (ΔL): 31mm
+- Required Physical Length: 188mm
+- Available Extra Length: 162mm
+
+END CORRECTION FACTORS:
+- K1 (Mouthpiece): 0.36
+- K2 (Open End): 0.63
+- Total End Correction: 31mm
+
+SUGGESTED LAYOUT (350mm total):
+- Slow Air Chamber: ~50mm
+- Block: ~10mm  
+- Main Bore: ~188mm
+- Extra Length: ~102mm
+
+TONE HOLE POSITIONS (from mouthpiece end):
+- A (440 Hz): ~165mm
+- B (494 Hz): ~145mm
+- C (523 Hz): ~130mm
+- D (587 Hz): ~115mm
+- E (659 Hz): ~100mm
+- F# (740 Hz): ~85mm
+- G (784 Hz): ~70mm
+
+TONE HOLE SPECIFICATIONS:
+- Hole Diameter: 6-8mm (recommended)
+- Hole Spacing: 15-20mm between centers
+- Hole Depth: 1mm (half wall thickness)
+
+FIPPLE DESIGN SPECIFICATIONS:
+- Sound Hole Width: 7-8mm (25% of bore diameter)
+- Sound Hole Length: 12-15mm (40-50% of bore diameter)
+- Sound Hole Depth: 1mm (half wall thickness)
+- Block Height: 4-5mm (above sound hole)
+- Flue Depth: 5-6mm (from plug top to block bottom)
+- Plug Position: Adjustable for tuning
+- Air Stream Angle: 45-60 degrees (block height dependent)
+
+CONSTRUCTION NOTES:
+1. Mark the 188mm point from one end as the main bore length
+2. The extra 162mm can be used for:
+   - Slow air chamber
+   - Block area
+   - Decorative elements
+   - Or cut off if not needed
+3. Drill tone holes starting from the 70mm mark
+4. Test each hole as you drill to verify pitch
+
+TESTING PROCEDURE:
+1. Block the end at 188mm mark
+2. Test fundamental G note (392 Hz)
+3. Drill holes one at a time, testing each
+4. Use tuner to verify frequencies
+5. Adjust hole sizes if needed for intonation
+
+CALCULATION VERIFICATION:
+- Physical Length: 188mm
+- End Corrections: 31mm
+- Effective Length: 219mm
+- Calculated Frequency: 392 Hz ✓
+
+DESIGN FLEXIBILITY:
+- Can use full 350mm length for longer slow air chamber
+- Can cut to 200mm for more compact design
+- Extra length allows for experimentation with block placement
+- Wall thickness (2mm) is adequate for tone hole drilling
+
+NEXT STEPS:
+1. Decide on final length (188mm or use full 350mm)
+2. Mark drilling points
+3. Begin construction
+4. Test and adjust as needed
+
+================================
+END OF SPECIFICATIONS
+================================

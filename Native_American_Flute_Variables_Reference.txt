@@ -1,0 +1,288 @@
+NATIVE AMERICAN FLUTE CALCULATION VARIABLES REFERENCE
+=====================================================
+
+This document provides a comprehensive reference for all variables used in Native American flute calculations, based on acoustic principles and design methodologies from Prairie (2006), Shands (2010), and other authoritative sources.
+
+TABLE OF CONTENTS
+=================
+1. ACOUSTIC VARIABLES
+2. GEOMETRIC VARIABLES  
+3. TUNING VARIABLES
+4. AIR COLUMN VARIABLES
+5. TONE HOLE VARIABLES
+6. END CORRECTION VARIABLES
+7. CALCULATION CONSTANTS
+8. MEASUREMENT TECHNIQUES
+
+=====================================================
+1. ACOUSTIC VARIABLES
+=====================================================
+
+FUNDAMENTAL FREQUENCY (f0)
+- Definition: The lowest resonant frequency of the air column
+- Units: Hertz (Hz)
+- Calculation: f0 = c / (4 * Leff)
+- Where: c = speed of sound (343 m/s at 20°C), Leff = effective length
+- Implementation: Determines the key/scale of the flute
+- Measurement: Use frequency analyzer or tuner
+
+SPEED OF SOUND (c)
+- Definition: Velocity of sound waves in air
+- Units: meters per second (m/s)
+- Value: 343 m/s at 20°C, varies with temperature
+- Calculation: c = 331.3 + (0.606 * T) where T = temperature in °C
+- Implementation: Used in all frequency calculations
+- Measurement: Calculated from ambient temperature
+
+EFFECTIVE LENGTH (Leff)
+- Definition: The acoustically effective length of the air column
+- Units: meters (m)
+- Calculation: Leff = L + ΔL (physical length + end corrections)
+- Implementation: Determines fundamental frequency
+- Measurement: Physical measurement plus calculated end corrections
+
+=====================================================
+2. GEOMETRIC VARIABLES
+=====================================================
+
+BORE LENGTH (L)
+- Definition: Physical length of the main air column from mouthpiece to open end
+- Units: meters (m) or inches
+- Typical range: 0.3-0.8m (12-32 inches)
+- Implementation: Primary determinant of fundamental frequency
+- Measurement: Direct measurement with ruler or calipers
+
+BORE DIAMETER (D)
+- Definition: Internal diameter of the main air column
+- Units: meters (m) or inches
+- Typical range: 0.015-0.025m (0.6-1.0 inches)
+- Implementation: Affects timbre, volume, and end corrections
+- Measurement: Internal calipers or bore gauge
+
+WALL THICKNESS (t)
+- Definition: Thickness of the flute wall material
+- Units: meters (m) or inches
+- Typical range: 0.003-0.008m (0.12-0.32 inches)
+- Implementation: Affects structural integrity and some acoustic properties
+- Measurement: Calipers on cross-section
+
+=====================================================
+3. TUNING VARIABLES
+=====================================================
+
+K1 (First End Correction Factor)
+- Definition: End correction for the mouthpiece/block end/north end
+- Units: dimensionless (typically 0.3-0.6)
+- Calculation: K1 = 0.3 + 0.2 * (D/L)^0.5
+- Implementation: Added to physical length for effective length calculation
+- Measurement: Derived from bore geometry
+
+K2 (Second End Correction Factor)
+- Definition: End correction for the open end/south end
+- Units: dimensionless (typically 0.6-0.8)
+- Calculation: K2 = 0.6 + 0.1 * (D/L)^0.5
+- Implementation: Added to physical length for effective length calculation
+- Measurement: Derived from bore geometry
+
+END CORRECTION (ΔL)
+- Definition: Total end correction for both ends
+- Units: meters (m)
+- Calculation: ΔL = K1 * D + K2 * D
+- Implementation: Compensates for acoustic behavior at open ends
+- Measurement: Calculated from K1, K2, and bore diameter
+
+=====================================================
+4. AIR COLUMN VARIABLES
+=====================================================
+
+SLOW AIR CHAMBER LENGTH (L_sac)
+- Definition: Length of the slow air chamber from mouthpiece to block
+- Units: meters (m)
+- Typical range: 0.05-0.15m (2-6 inches)
+- Implementation: Affects breath control and initial air flow
+- Measurement: Direct measurement from mouthpiece to block
+
+SLOW AIR CHAMBER DIAMETER (D_sac)
+- Definition: Diameter of the slow air chamber
+- Units: meters (m)
+- Typically same as bore diameter
+- Implementation: Affects air flow characteristics
+- Measurement: Internal calipers
+
+BLOCK HEIGHT (h_block)
+- Definition: Height of the block above the sound hole
+- Units: meters (m)
+- Typical range: 0.003-0.008m (0.12-0.32 inches)
+- Implementation: Critical for proper air splitting and sound production
+- Measurement: Calipers or depth gauge
+
+SOUND HOLE WIDTH (w_sound)
+- Definition: Width of the sound hole (TSH - True Sound Hole)
+- Units: meters (m)
+- Typical range: 0.008-0.015m (0.32-0.6 inches)
+- Implementation: Affects air splitting and sound quality
+- Measurement: Calipers across the sound hole
+
+SOUND HOLE LENGTH (l_sound)
+- Definition: Length of the sound hole
+- Units: meters (m)
+- Typical range: 0.015-0.025m (0.6-1.0 inches)
+- Implementation: Works with width to determine air splitting characteristics
+- Measurement: Calipers along the sound hole
+
+=====================================================
+5. TONE HOLE VARIABLES
+=====================================================
+
+TONE HOLE DIAMETER (d_th)
+- Definition: Diameter of individual tone holes
+- Units: meters (m)
+- Typical range: 0.006-0.012m (0.24-0.48 inches)
+- Implementation: Affects pitch and volume of individual notes
+- Measurement: Calipers or hole gauge
+
+TONE HOLE POSITION (x_th)
+- Definition: Distance from mouthpiece to center of tone hole
+- Units: meters (m)
+- Calculation: Based on desired frequency and acoustic principles
+- Implementation: Determines the pitch of each note
+- Measurement: Ruler from mouthpiece to hole center
+
+TONE HOLE SPACING (s_th)
+- Definition: Distance between adjacent tone holes
+- Units: meters (m)
+- Calculation: x_th(n+1) - x_th(n)
+- Implementation: Affects playability and finger reach
+- Measurement: Ruler between hole centers
+
+TONE HOLE DEPTH (h_th)
+- Definition: Depth of tone hole drilling
+- Units: meters (m)
+- Typically: 0.5 * wall thickness
+- Implementation: Affects tone hole end correction
+- Measurement: Depth gauge or calipers
+
+=====================================================
+6. END CORRECTION VARIABLES
+=====================================================
+
+MOUTHPIECE END CORRECTION (ΔL_mp)
+- Definition: End correction for the mouthpiece end
+- Units: meters (m)
+- Calculation: ΔL_mp = K1 * D
+- Implementation: Compensates for acoustic behavior at mouthpiece
+- Measurement: Calculated from K1 and bore diameter
+
+OPEN END CORRECTION (ΔL_open)
+- Definition: End correction for the open end
+- Units: meters (m)
+- Calculation: ΔL_open = K2 * D
+- Implementation: Compensates for acoustic behavior at open end
+- Measurement: Calculated from K2 and bore diameter
+
+TONE HOLE END CORRECTION (ΔL_th)
+- Definition: End correction for open tone holes
+- Units: meters (m)
+- Calculation: ΔL_th = 0.6 * d_th
+- Implementation: Affects effective length when holes are open
+- Measurement: Calculated from tone hole diameter
+
+=====================================================
+7. CALCULATION CONSTANTS
+=====================================================
+
+ACOUSTIC IMPEDANCE (Z)
+- Definition: Ratio of pressure to volume velocity
+- Units: Pa·s/m³
+- Calculation: Z = ρc/A where ρ = air density, c = speed of sound, A = cross-sectional area
+- Implementation: Used in advanced acoustic modeling
+- Measurement: Calculated from air properties and geometry
+
+AIR DENSITY (ρ)
+- Definition: Mass per unit volume of air
+- Units: kg/m³
+- Value: 1.204 kg/m³ at 20°C, 1 atm
+- Calculation: ρ = 1.293 * (273.15 / (273.15 + T)) * (P / 101325)
+- Implementation: Used in impedance calculations
+- Measurement: Calculated from temperature and pressure
+
+CROSS-SECTIONAL AREA (A)
+- Definition: Area of the bore cross-section
+- Units: square meters (m²)
+- Calculation: A = π * (D/2)²
+- Implementation: Used in impedance and flow calculations
+- Measurement: Calculated from bore diameter
+
+=====================================================
+8. MEASUREMENT TECHNIQUES
+=====================================================
+
+PHYSICAL MEASUREMENTS
+- Use precision calipers for diameters and thicknesses
+- Use rulers or measuring tapes for lengths
+- Use depth gauges for hole depths
+- Record measurements to nearest 0.1mm (0.004 inches)
+
+ACOUSTIC MEASUREMENTS
+- Use digital tuner or frequency analyzer for pitch
+- Measure at consistent temperature (20°C recommended)
+- Use consistent blowing pressure
+- Record frequencies to nearest 1 Hz
+
+CALCULATION VERIFICATION
+- Compare calculated frequencies with measured frequencies
+- Adjust end correction factors if needed
+- Verify tone hole positions produce correct intervals
+- Test playability and intonation
+
+=====================================================
+COMMON CALCULATION FORMULAS
+=====================================================
+
+FUNDAMENTAL FREQUENCY:
+f0 = c / (4 * Leff)
+
+EFFECTIVE LENGTH:
+Leff = L + K1*D + K2*D
+
+TONE HOLE POSITION (approximate):
+x_th = (c / (4 * f_desired)) - (K1 * D) - (0.6 * d_th)
+
+END CORRECTION FACTORS:
+K1 = 0.3 + 0.2 * (D/L)^0.5
+K2 = 0.6 + 0.1 * (D/L)^0.5
+
+TEMPERATURE CORRECTION:
+c = 331.3 + (0.606 * T)
+
+=====================================================
+DESIGN CONSIDERATIONS
+=====================================================
+
+SCALE AND KEY
+- Choose fundamental frequency based on desired key
+- Consider player's hand size for tone hole spacing
+- Balance between acoustic theory and practical playability
+
+MATERIAL PROPERTIES
+- Wood density affects resonance characteristics
+- Wall thickness affects structural integrity
+- Finish affects air flow and moisture resistance
+
+ACOUSTIC OPTIMIZATION
+- Minimize end corrections for better intonation
+- Optimize tone hole sizes for volume and clarity
+- Balance bore diameter for timbre and playability
+
+=====================================================
+REFERENCES
+=====================================================
+
+Prairie, R. (2006). Understanding Acoustics of the Native American Flute.
+Shands, R. (2010). How to Build a Simple North American Style Flute.
+
+Additional variables and calculations may be found in these source documents and other acoustic engineering references for wind instruments.
+
+=====================================================
+END OF REFERENCE DOCUMENT
+=====================================================

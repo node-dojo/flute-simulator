@@ -1,0 +1,134 @@
+200MM FLUTE BASE NOTE RANGE ANALYSIS
+=====================================
+
+CONSTRAINTS:
+- Total Length: 200 mm (limited by 3D print bed)
+- Inner Diameter: 20-30 mm (large air chamber)
+- Speed of Sound: 343 m/s (at 20°C)
+
+BASE NOTE RANGE: A4 to C5
+==========================
+
+The base note (fundamental frequency) can range from approximately:
+- LOWEST: A4 (449 Hz) - with 30mm diameter, 160mm bore
+- HIGHEST: C5 (535 Hz) - with 20mm diameter, 140mm bore
+
+This represents approximately a minor third interval (3 semitones).
+
+DETAILED CONFIGURATIONS:
+========================
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 20mm INNER DIAMETER                                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│ Bore: 140mm → C5 (535 Hz) - Highest pitch                       │
+│   - Slow Air Chamber: ~50mm                                     │
+│   - Effective Length: 160.27mm                                  │
+│                                                                  │
+│ Bore: 150mm → B4 (504 Hz)                                       │
+│   - Slow Air Chamber: ~40mm                                     │
+│   - Effective Length: 170.19mm                                  │
+│                                                                  │
+│ Bore: 160mm → A#4 (476 Hz)                                      │
+│   - Slow Air Chamber: ~30mm                                     │
+│   - Effective Length: 180.12mm                                  │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 30mm INNER DIAMETER                                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│ Bore: 140mm → B4 (501 Hz)                                       │
+│   - Slow Air Chamber: ~50mm                                     │
+│   - Effective Length: 171.17mm                                  │
+│                                                                  │
+│ Bore: 150mm → A#4 (474 Hz)                                      │
+│   - Slow Air Chamber: ~40mm                                     │
+│   - Effective Length: 181.02mm                                  │
+│                                                                  │
+│ Bore: 160mm → A4 (449 Hz) - Lowest pitch                       │
+│   - Slow Air Chamber: ~30mm                                     │
+│   - Effective Length: 190.90mm                                 │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+
+DESIGN RECOMMENDATIONS:
+=======================
+
+FOR LOWER NOTES (A4 to A#4):
+- Use 30mm inner diameter
+- Use longer bore (150-160mm)
+- Smaller slow air chamber (30-40mm)
+
+FOR HIGHER NOTES (B4 to C5):
+- Use 20mm inner diameter  
+- Use shorter bore (140-150mm)
+- Larger slow air chamber (40-50mm)
+
+ACOUSTIC PRINCIPLES:
+====================
+
+The fundamental frequency is determined by:
+f0 = c / (4 * Leff)
+
+Where:
+- c = speed of sound (343 m/s)
+- Leff = effective length = physical length + end corrections
+
+End corrections depend on:
+- Bore diameter (D)
+- Bore length (L)
+- K1 = 0.3 + 0.2 * sqrt(D/L)  (mouthpiece end)
+- K2 = 0.6 + 0.1 * sqrt(D/L)  (open end)
+
+Larger diameter → larger end corrections → longer effective length → lower pitch
+Longer bore → longer effective length → lower pitch
+
+PRACTICAL CONSIDERATIONS:
+=========================
+
+1. Slow Air Chamber Size:
+   - Minimum recommended: ~30mm (for proper air flow)
+   - Maximum practical: ~50mm (to maximize bore length)
+
+2. Block Area:
+   - Typically requires ~10mm for the fipple mechanism
+   - Includes sound hole, block, and air channel
+
+3. Total Length Allocation:
+   - Slow Air Chamber: 30-50mm
+   - Block Area: ~10mm
+   - Main Bore: 140-160mm
+   - Total: 200mm
+
+4. Tuning Flexibility:
+   - You can fine-tune by adjusting:
+     * Slow air chamber length
+     * Block position
+     * Exact bore length
+   - Small adjustments (±5mm) can shift pitch by ~20-30 Hz
+
+MUSICAL CONTEXT:
+================
+
+A4 to C5 range covers:
+- A4 (440 Hz) - Concert A
+- A#4/Bb4 (466 Hz)
+- B4 (494 Hz)
+- C5 (523 Hz) - Middle C
+
+This is a comfortable range for a small flute, suitable for:
+- Melodic playing
+- Higher-pitched compositions
+- Bright, clear tone
+
+If you need lower notes, you would need to:
+- Increase total length beyond 200mm, OR
+- Use a larger diameter (but this may affect playability)
+
+================================
+Generated: 200mm Flute Analysis
+================================
+

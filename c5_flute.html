@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUTE SIMULATOR</title>
+    <style>
+        @font-face {
+            font-family: 'LED Dot-Matrix';
+            src: url('LED Dot-Matrix.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Source Code Pro';
+            src: url('SourceCodePro-Regular.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'LED Dot-Matrix', monospace;
+            text-align: center;
+            color: black;
+            margin-bottom: 110px;
+            font-size: 3.5em;
+            letter-spacing: 0.1em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: black;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .flute-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .flute-body {
+            position: relative;
+            width: 1800px;
+            height: 240px;
+            background-image: url('flute blank.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .c5-indicator {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9em;
+            font-weight: bold;
+            color: black;
+            white-space: nowrap;
+        }
+
+        .hole.closed {
+            background: black;
+        }
+
+        .hole.open {
+            background: white;
+            border: 2px solid black;
+        }
+
+        .key-hint {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+            font-weight: bold;
+            color: black;
+        }
+
+        .hole {
+            width: 37.5px;
+            height: 37.5px;
+            border-radius: 50%;
+            background: black;
+            border: 2px solid black;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #hole-5 {
+            left: 700px;
+        }
+
+        #hole-4 {
+            left: 811px;
+        }
+
+        #hole-3 {
+            left: 922px;
+        }
+
+        #hole-2 {
+            left: 1033px;
+        }
+
+        #hole-1 {
+            left: 1144px;
+        }
+
+        #hole-0 {
+            left: 1255px;
+        }
+
+        .hole:hover {
+            transform: scale(1.1);
+            background: #333;
+        }
+
+        .hole:active {
+            transform: scale(0.95);
+        }
+
+        .hole-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75em;
+            font-weight: bold;
+            color: black;
+            white-space: nowrap;
+        }
+
+        .note-info {
+            text-align: center;
+            margin-top: 50px;
+            padding: 15px;
+            background: white;
+            border: 2px solid black;
+            font-size: 1.1em;
+            color: black;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .note-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: black;
+            margin: 0 10px;
+        }
+
+        .frequency {
+            color: black;
+            font-size: 0.9em;
+        }
+
+        .instructions {
+            text-align: left;
+            margin-top: 30px;
+            color: black;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .scale-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border: 2px solid black;
+        }
+
+        .scale-info h3 {
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .scale-info p {
+            color: black;
+            line-height: 1.6;
+        }
+
+        .lock-control {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        .lock-control label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            color: black;
+        }
+
+        .lock-control input[type="checkbox"],
+        .dark-mode-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border: 2px solid black;
+            background: white;
+            position: relative;
+        }
+
+        .lock-control input[type="checkbox"]:checked,
+        .dark-mode-toggle input[type="checkbox"]:checked {
+            background: black;
+        }
+
+        .lock-control input[type="checkbox"]:checked::after,
+        .dark-mode-toggle input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        body.dark-mode .lock-control input[type="checkbox"],
+        body.dark-mode .dark-mode-toggle input[type="checkbox"] {
+            border-color: white;
+            background: black;
+        }
+
+        body.dark-mode .lock-control input[type="checkbox"]:checked,
+        body.dark-mode .dark-mode-toggle input[type="checkbox"]:checked {
+            background: white;
+        }
+
+        body.dark-mode .lock-control input[type="checkbox"]:checked::after,
+        body.dark-mode .dark-mode-toggle input[type="checkbox"]:checked::after {
+            color: black;
+        }
+
+        .hole.locked {
+            background: black;
+            border: 3px double black;
+            position: relative;
+        }
+
+        .hole.locked .key-hint {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .key-selector {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .key-selector label {
+            font-size: 1em;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .key-selector select {
+            padding: 8px 15px;
+            font-size: 1em;
+            border: 2px solid black;
+            background: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        .key-selector select:focus {
+            outline: none;
+        }
+
+        .dark-mode-toggle {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        .dark-mode-toggle label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            color: black;
+        }
+
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background: black;
+        }
+
+        body.dark-mode .container {
+            background: black;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode .subtitle,
+        body.dark-mode .key-selector label,
+        body.dark-mode .key-selector select,
+        body.dark-mode .instructions,
+        body.dark-mode .scale-info h3,
+        body.dark-mode .scale-info p,
+        body.dark-mode .note-info,
+        body.dark-mode .note-name,
+        body.dark-mode .frequency,
+        body.dark-mode .c5-indicator,
+        body.dark-mode .lock-control,
+        body.dark-mode .lock-control label,
+        body.dark-mode .dark-mode-toggle,
+        body.dark-mode .dark-mode-toggle label {
+            color: white;
+        }
+
+        body.dark-mode .key-selector select,
+        body.dark-mode .note-info,
+        body.dark-mode .scale-info,
+        body.dark-mode .lock-control,
+        body.dark-mode .dark-mode-toggle {
+            background: black;
+            border-color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FLUTE SIMULATOR</h1>
+        <div class="key-selector">
+            <label for="key-select">Key:</label>
+            <select id="key-select">
+                <option value="A2">A2</option>
+                <option value="A#2">A#2</option>
+                <option value="B2">B2</option>
+                <option value="C3">C3</option>
+                <option value="C#3">C#3</option>
+                <option value="D3">D3</option>
+                <option value="D#3">D#3</option>
+                <option value="E3">E3</option>
+                <option value="F3">F3</option>
+                <option value="F#3">F#3</option>
+                <option value="G3">G3</option>
+                <option value="G#3">G#3</option>
+                <option value="A3">A3</option>
+                <option value="A#3">A#3</option>
+                <option value="B3">B3</option>
+                <option value="C4">C4</option>
+                <option value="C#4">C#4</option>
+                <option value="D4">D4</option>
+                <option value="D#4">D#4</option>
+                <option value="E4">E4</option>
+                <option value="F4">F4</option>
+                <option value="F#4">F#4</option>
+                <option value="G4">G4</option>
+                <option value="G#4">G#4</option>
+                <option value="A4">A4</option>
+                <option value="A#4">A#4</option>
+                <option value="B4">B4</option>
+                <option value="C5" selected>C5</option>
+                <option value="C#5">C#5</option>
+                <option value="D5">D5</option>
+                <option value="D#5">D#5</option>
+                <option value="E5">E5</option>
+                <option value="F5">F5</option>
+                <option value="F#5">F#5</option>
+                <option value="G5">G5</option>
+                <option value="G#5">G#5</option>
+            </select>
+        </div>
+
+        <div class="flute-container">
+            <div class="flute-body">
+                <div class="hole closed" data-note="C6" data-freq="1046.50" data-key="a" id="hole-5">
+                    <div class="key-hint">A</div>
+                    <div class="hole-label">C6</div>
+                </div>
+                
+                <div class="hole closed" data-note="A5" data-freq="880.00" data-key="s" id="hole-4">
+                    <div class="key-hint">S</div>
+                    <div class="hole-label">A5</div>
+                </div>
+                
+                <div class="hole closed" data-note="G5" data-freq="783.99" data-key="d" id="hole-3">
+                    <div class="key-hint">D</div>
+                    <div class="hole-label">G5</div>
+                </div>
+                
+                <div class="hole closed" data-note="E5" data-freq="659.25" data-key="j" id="hole-2">
+                    <div class="key-hint">J</div>
+                    <div class="hole-label">E5</div>
+                </div>
+                
+                <div class="hole closed" data-note="D5" data-freq="587.33" data-key="k" id="hole-1">
+                    <div class="key-hint">K</div>
+                    <div class="hole-label">D5</div>
+                </div>
+                
+                <div class="hole closed" data-note="C5" data-freq="523.25" data-key="l" id="hole-0">
+                    <div class="key-hint">L</div>
+                    <div class="hole-label">C5</div>
+                </div>
+                
+                <div class="c5-indicator" id="base-note-indicator">C5</div>
+            </div>
+
+            <div class="note-info" id="note-info">
+                Click a hole to play a note
+            </div>
+        </div>
+
+        <div class="instructions">
+            <p><strong>How to play:</strong> Click on any hole to play that note, or use keyboard controls.</p>
+            <p><strong>Keyboard:</strong> Press A, S, D, J, K, L to close holes (from high to low). Press SPACEBAR to blow. All keys + space = C5. Fewer keys = higher notes.</p>
+            <p><strong>Lock 3rd hole:</strong> When locked, the G5 hole (D key) stays permanently closed, making it easier to play traditional scales.</p>
+        </div>
+
+        <div class="lock-control">
+            <label>
+                <input type="checkbox" id="lock-third-hole" checked>
+                <span>Lock 3rd hole (G5) closed (traditional style)</span>
+            </label>
+        </div>
+
+        <div class="dark-mode-toggle">
+            <label>
+                <input type="checkbox" id="dark-mode-toggle" checked>
+                <span>Dark Mode</span>
+            </label>
+        </div>
+
+        <div class="scale-info">
+            <h3>Pentatonic Minor Scale</h3>
+            <p>This flute uses a traditional pentatonic minor scale: C5 - D5 - E5 - G5 - A5 - C6. This scale creates the characteristic sound of Native American flutes and allows for beautiful, harmonious melodies.</p>
+        </div>
+    </div>
+
+    <script>
+        class FlutePlayer {
+            constructor() {
+                this.audioContext = null;
+                this.oscillators = new Map();
+                this.pressedKeys = new Set();
+                this.isBlowing = false;
+                this.currentNote = null;
+                this.thirdHoleLocked = true;
+                this.baseKey = 'C5';
+                this.holeMap = {
+                    'a': { note: 'C6', freq: 1046.50, id: 'hole-5' },
+                    's': { note: 'A5', freq: 880.00, id: 'hole-4' },
+                    'd': { note: 'G5', freq: 783.99, id: 'hole-3' },
+                    'j': { note: 'E5', freq: 659.25, id: 'hole-2' },
+                    'k': { note: 'D5', freq: 587.33, id: 'hole-1' },
+                    'l': { note: 'C5', freq: 523.25, id: 'hole-0' }
+                };
+                this.initAudio();
+                this.setupEventListeners();
+                this.updateHoleVisuals(); // Set initial visual state
+            }
+
+            // Calculate frequency from note name (e.g., "C5", "A#4")
+            noteToFrequency(note) {
+                const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                const match = note.match(/([A-G]#?)(\d+)/);
+                if (!match) return 440; // Default to A4
+                
+                const noteName = match[1];
+                const octave = parseInt(match[2]);
+                const noteIndex = noteNames.indexOf(noteName);
+                
+                // A4 = 440 Hz is the reference
+                const semitonesFromA4 = (octave - 4) * 12 + (noteIndex - 9); // A is index 9
+                return 440 * Math.pow(2, semitonesFromA4 / 12);
+            }
+
+            // Calculate note name from base note and semitone offset
+            calculateNote(baseNote, semitones) {
+                const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                const match = baseNote.match(/([A-G]#?)(\d+)/);
+                if (!match) return baseNote;
+                
+                const baseNoteName = match[1];
+                const baseOctave = parseInt(match[2]);
+                const baseIndex = noteNames.indexOf(baseNoteName);
+                
+                let totalSemitones = baseIndex + semitones;
+                let octave = baseOctave;
+                
+                while (totalSemitones < 0) {
+                    totalSemitones += 12;
+                    octave--;
+                }
+                while (totalSemitones >= 12) {
+                    totalSemitones -= 12;
+                    octave++;
+                }
+                
+                return noteNames[totalSemitones] + octave;
+            }
+
+            // Update all notes based on the selected base key
+            updateKey(newKey) {
+                this.baseKey = newKey;
+                this.stopAllNotes();
+                
+                // Pentatonic minor scale intervals from base (in semitones)
+                const intervals = [0, 2, 4, 7, 9, 12]; // Base, minor 3rd, perfect 4th, minor 6th, minor 7th, octave
+                
+                // Calculate all notes
+                const notes = intervals.map(interval => this.calculateNote(newKey, interval));
+                const frequencies = notes.map(note => this.noteToFrequency(note));
+                
+                // Update holeMap
+                this.holeMap = {
+                    'a': { note: notes[5], freq: frequencies[5], id: 'hole-5' }, // Octave
+                    's': { note: notes[4], freq: frequencies[4], id: 'hole-4' }, // Minor 7th
+                    'd': { note: notes[3], freq: frequencies[3], id: 'hole-3' }, // Minor 6th
+                    'j': { note: notes[2], freq: frequencies[2], id: 'hole-2' }, // Perfect 4th
+                    'k': { note: notes[1], freq: frequencies[1], id: 'hole-1' }, // Minor 3rd
+                    'l': { note: notes[0], freq: frequencies[0], id: 'hole-0' }  // Base
+                };
+                
+                // Update hole data attributes and labels
+                Object.keys(this.holeMap).forEach(key => {
+                    const holeData = this.holeMap[key];
+                    const hole = document.getElementById(holeData.id);
+                    hole.dataset.note = holeData.note;
+                    hole.dataset.freq = holeData.freq;
+                    const label = hole.querySelector('.hole-label');
+                    if (label) {
+                        label.textContent = holeData.note;
+                    }
+                });
+                
+                // Update base note indicator to show current base note
+                const indicator = document.getElementById('base-note-indicator');
+                if (indicator) {
+                    indicator.textContent = `${newKey}`;
+                }
+                
+                
+                // If currently blowing, update the note
+                if (this.isBlowing) {
+                    this.playCurrentNote();
+                }
+            }
+
+            initAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.error('Web Audio API not supported');
+                }
+            }
+
+            setupEventListeners() {
+                // Click handlers for holes
+                const holes = document.querySelectorAll('.hole');
+                holes.forEach(hole => {
+                    hole.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Stop any currently playing notes
+                        this.stopAllNotes();
+                        const note = e.currentTarget.dataset.note;
+                        const freq = parseFloat(e.currentTarget.dataset.freq);
+                        if (note && freq) {
+                            this.playNote(note, freq, false);
+                            this.updateNoteInfo(note, freq);
+                        }
+                    });
+                });
+
+                // Keyboard handlers
+                document.addEventListener('keydown', (e) => {
+                    const key = e.key.toLowerCase();
+                    
+                    if (key === ' ') {
+                        e.preventDefault();
+                        this.isBlowing = true;
+                        this.playCurrentNote();
+                    } else if (this.holeMap[key]) {
+                        // Ignore 'd' key if 3rd hole is locked
+                        if (key === 'd' && this.thirdHoleLocked) {
+                            return;
+                        }
+                        e.preventDefault();
+                        this.pressedKeys.add(key);
+                        this.updateHoleVisuals();
+                        if (this.isBlowing) {
+                            this.playCurrentNote();
+                        }
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    const key = e.key.toLowerCase();
+                    
+                    if (key === ' ') {
+                        e.preventDefault();
+                        this.isBlowing = false;
+                        this.stopAllNotes();
+                    } else if (this.holeMap[key]) {
+                        // Ignore 'd' key if 3rd hole is locked
+                        if (key === 'd' && this.thirdHoleLocked) {
+                            return;
+                        }
+                        e.preventDefault();
+                        this.pressedKeys.delete(key);
+                        this.updateHoleVisuals();
+                        if (this.isBlowing) {
+                            this.playCurrentNote();
+                        }
+                    }
+                });
+
+                // Lock checkbox handler
+                const lockCheckbox = document.getElementById('lock-third-hole');
+                lockCheckbox.addEventListener('change', (e) => {
+                    this.thirdHoleLocked = e.target.checked;
+                    this.updateHoleVisuals();
+                    // Remove 'd' from pressed keys when locking
+                    if (this.thirdHoleLocked) {
+                        this.pressedKeys.delete('d');
+                    }
+                    if (this.isBlowing) {
+                        this.playCurrentNote();
+                    }
+                });
+
+                // Key selector handler
+                const keySelect = document.getElementById('key-select');
+                keySelect.addEventListener('change', (e) => {
+                    this.updateKey(e.target.value);
+                });
+
+                // Dark mode toggle handler
+                const darkModeToggle = document.getElementById('dark-mode-toggle');
+                // Initialize dark mode if checkbox is checked
+                if (darkModeToggle.checked) {
+                    document.body.classList.add('dark-mode');
+                }
+                darkModeToggle.addEventListener('change', (e) => {
+                    document.body.classList.toggle('dark-mode', e.target.checked);
+                });
+            }
+
+            updateHoleVisuals() {
+                // Update visual state of holes based on pressed keys
+                Object.keys(this.holeMap).forEach(key => {
+                    const hole = document.getElementById(this.holeMap[key].id);
+                    
+                    // Handle 3rd hole (G5, 'd' key) locked state
+                    if (key === 'd') {
+                        if (this.thirdHoleLocked) {
+                            hole.classList.remove('open', 'closed');
+                            hole.classList.add('closed', 'locked');
+                        } else {
+                            hole.classList.remove('locked');
+                            if (this.pressedKeys.has(key)) {
+                                hole.classList.remove('open');
+                                hole.classList.add('closed');
+                            } else {
+                                hole.classList.remove('closed');
+                                hole.classList.add('open');
+                            }
+                        }
+                    } else {
+                        // Regular holes
+                        if (this.pressedKeys.has(key)) {
+                            hole.classList.remove('open');
+                            hole.classList.add('closed');
+                        } else {
+                            hole.classList.remove('closed');
+                            hole.classList.add('open');
+                        }
+                    }
+                });
+            }
+
+            playCurrentNote() {
+                // Determine which note to play based on which keys are pressed
+                // Keys pressed = holes closed
+                // If 3rd hole is locked, it's always counted as closed
+                
+                let effectiveKeysPressed = this.pressedKeys.size;
+                
+                // If 3rd hole is locked, always count it as closed
+                if (this.thirdHoleLocked) {
+                    // If 'd' is not in pressed keys, add it to the count (since it's locked closed)
+                    if (!this.pressedKeys.has('d')) {
+                        effectiveKeysPressed += 1;
+                    }
+                }
+                
+                // Map number of effective keys pressed to notes
+                // All 6 keys = base note, 5 keys = 2nd note, 4 keys = 3rd note, etc.
+                const noteIndex = 6 - effectiveKeysPressed; // 0 = all open (octave), 6 = all closed (base)
+                const noteIndexClamped = Math.max(0, Math.min(5, noteIndex));
+                
+                // Get note and frequency from holeMap based on position
+                const keys = ['l', 'k', 'j', 'd', 's', 'a']; // From base to octave
+                const key = keys[noteIndexClamped];
+                const holeData = this.holeMap[key];
+                
+                this.playNote(holeData.note, holeData.freq, this.isBlowing);
+                this.updateNoteInfo(holeData.note, holeData.freq);
+            }
+
+            playNote(note, frequency, continuous = false) {
+                // Stop any currently playing note if switching to a different note
+                if (this.currentNote !== note) {
+                    this.stopAllNotes();
+                }
+                
+                // If already playing the same note continuously, don't restart
+                if (continuous && this.currentNote === note && this.oscillators.has(note)) {
+                    return;
+                }
+
+                if (!this.audioContext) {
+                    this.initAudio();
+                }
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+
+                oscillator.type = 'sine';
+                oscillator.frequency.value = frequency;
+
+                const now = this.audioContext.currentTime;
+                
+                if (continuous) {
+                    // Continuous playing: fade in, sustain while spacebar held
+                    gainNode.gain.setValueAtTime(0, now);
+                    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.05); // Fade in
+                    gainNode.gain.setValueAtTime(0.3, now + 0.05); // Sustain
+                    // Don't set stop time - will stop when spacebar released
+                } else {
+                    // Click play: fade in and out
+                    gainNode.gain.setValueAtTime(0, now);
+                    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.05); // Fade in
+                    gainNode.gain.linearRampToValueAtTime(0.3, now + 1.5); // Sustain
+                    gainNode.gain.linearRampToValueAtTime(0, now + 2.0); // Fade out
+                    oscillator.stop(now + 2.0);
+                }
+
+                oscillator.start(now);
+                this.currentNote = note;
+                this.oscillators.set(note, { oscillator, gainNode });
+            }
+
+            stopAllNotes() {
+                this.oscillators.forEach(({ oscillator }) => {
+                    try {
+                        oscillator.stop();
+                    } catch (e) {
+                        // Oscillator may already be stopped
+                    }
+                });
+                this.oscillators.clear();
+                this.currentNote = null;
+            }
+
+            updateNoteInfo(note, frequency) {
+                const noteInfo = document.getElementById('note-info');
+                noteInfo.innerHTML = `
+                    <span class="note-name">${note}</span>
+                    <span class="frequency">(${frequency.toFixed(2)} Hz)</span>
+                `;
+            }
+        }
+
+        // Initialize the flute player when page loads
+        window.addEventListener('load', () => {
+            new FlutePlayer();
+        });
+    </script>
+</body>
+</html>
+
