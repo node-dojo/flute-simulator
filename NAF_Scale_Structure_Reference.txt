@@ -1,0 +1,158 @@
+NATIVE AMERICAN FLUTE (NAF) SCALE STRUCTURE REFERENCE
+======================================================
+
+This document defines the correct pentatonic minor scale structure used in Native American flutes.
+
+SCALE TYPE: Pentatonic Minor Scale
+===================================
+
+The Native American flute uses a pentatonic minor scale, which consists of 5 notes per octave plus the octave note, for a total of 6 playable notes.
+
+SCALE INTERVALS (in semitones from root)
+========================================
+
+The pentatonic minor scale intervals from the base note are:
+
+1. Root (1)          = 0 semitones
+2. Minor 3rd (b3)   = 3 semitones
+3. Perfect 4th (4)  = 5 semitones
+4. Perfect 5th (5)  = 7 semitones
+5. Minor 7th (b7)   = 10 semitones
+6. Octave (8)       = 12 semitones
+
+Array format: [0, 3, 5, 7, 10, 12]
+
+SCALE STRUCTURE
+===============
+
+The scale follows the pattern: 1 - b3 - 4 - 5 - b7 - 8
+
+This creates the characteristic sound of Native American flutes, which is:
+- Harmonious and melodic
+- Lacks the dissonant intervals found in full major/minor scales
+- Allows for beautiful, flowing melodies
+
+EXAMPLES BY KEY
+===============
+
+F4 Flute:
+---------
+- F4  (root, 0 semitones)
+- G#4 (minor 3rd, 3 semitones)
+- A#4 (perfect 4th, 5 semitones)
+- C5  (perfect 5th, 7 semitones)
+- D#5 (minor 7th, 10 semitones)
+- F5  (octave, 12 semitones)
+
+C5 Flute:
+---------
+- C5  (root, 0 semitones)
+- D#5 (minor 3rd, 3 semitones)
+- F5  (perfect 4th, 5 semitones)
+- G5  (perfect 5th, 7 semitones)
+- A#5 (minor 7th, 10 semitones)
+- C6  (octave, 12 semitones)
+
+A4 Flute:
+---------
+- A4  (root, 0 semitones)
+- C5  (minor 3rd, 3 semitones)
+- D5  (perfect 4th, 5 semitones)
+- E5  (perfect 5th, 7 semitones)
+- G5  (minor 7th, 10 semitones)
+- A5  (octave, 12 semitones)
+
+CALCULATION METHOD
+==================
+
+To calculate the notes for any given base key:
+
+1. Start with the base note (e.g., F4)
+2. Add each interval in semitones:
+   - Base + 0  = Root note
+   - Base + 3  = Minor 3rd
+   - Base + 5  = Perfect 4th
+   - Base + 7  = Perfect 5th
+   - Base + 10 = Minor 7th
+   - Base + 12 = Octave
+
+3. Handle octave transitions:
+   - When semitones exceed 11, increment the octave number
+   - When semitones go below 0, decrement the octave number
+
+IMPLEMENTATION NOTES
+====================
+
+In JavaScript/Code:
+-------------------
+const intervals = [0, 3, 5, 7, 10, 12];
+
+For each interval:
+  note = calculateNote(baseNote, interval)
+
+Where calculateNote:
+1. Parses base note (e.g., "F4")
+2. Gets note index in chromatic scale (F = index 5)
+3. Adds interval semitones
+4. Handles octave wrapping
+5. Returns new note name with octave
+
+COMMON MISTAKES TO AVOID
+========================
+
+❌ INCORRECT: [0, 2, 4, 7, 9, 12]
+   - This produces: Root, Major 2nd, Major 3rd, Perfect 5th, Major 6th, Octave
+   - Results in wrong notes (e.g., F4 → G4, A4, C5, D5, F5 instead of F4 → G#4, A#4, C5, D#5, F5)
+
+✅ CORRECT: [0, 3, 5, 7, 10, 12]
+   - This produces the authentic pentatonic minor scale
+   - All intervals match traditional Native American flute tuning
+
+HOLE POSITIONING
+================
+
+On a traditional Native American flute, the holes are positioned from the open end (south end) toward the mouthpiece (north end):
+
+1. Hole closest to open end: Plays the octave (highest note)
+2. Next hole: Plays minor 7th
+3. Next hole: Plays perfect 5th
+4. Next hole: Plays perfect 4th
+5. Next hole: Plays minor 3rd
+6. All holes closed: Plays root (fundamental, lowest note)
+
+Opening holes progressively from the open end raises the pitch, as each open hole shortens the effective length of the air column.
+
+TRADITIONAL VARIATIONS
+======================
+
+Some traditional flutes have variations:
+- Locked 3rd hole: The 3rd hole (perfect 5th) is sometimes permanently closed, making it easier to play certain scales
+- This is a common traditional style that simplifies fingerings
+
+FREQUENCY CALCULATION
+=====================
+
+Each note's frequency can be calculated from A4 = 440 Hz:
+
+f = 440 × 2^(n/12)
+
+Where n = number of semitones from A4
+
+For example, F4 is 5 semitones below A4:
+f(F4) = 440 × 2^(-5/12) ≈ 349.23 Hz
+
+REFERENCES
+==========
+
+This scale structure is based on:
+- Traditional Native American flute tuning practices
+- Acoustic principles of pentatonic scales
+- Standard musical interval definitions
+
+The pentatonic minor scale is one of the most ancient and universal musical scales, found in cultures worldwide, and is particularly characteristic of Native American music.
+
+======================================================
+Document Version: 1.0
+Last Updated: 2025
+======================================================
+
