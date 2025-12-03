@@ -1,6 +1,10 @@
 # FLUTE SIMULATOR
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Site-brightgreen)](https://node-dojo.github.io/flute-simulator/)
+
 An interactive web-based Native American Flute simulator with keyboard controls and visual feedback.
+
+**[🎵 Try the Flute Simulator →](https://node-dojo.github.io/flute-simulator/)**
 
 ## Features
 
