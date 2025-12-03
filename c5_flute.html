@@ -449,7 +449,7 @@
             </div>
 
             <div class="note-info" id="note-info">
-                Click a hole to play a note
+                hit space bar to blow air through flute
             </div>
         </div>
 
@@ -548,7 +548,7 @@
                 this.stopAllNotes();
                 
                 // Pentatonic minor scale intervals from base (in semitones)
-                const intervals = [0, 2, 4, 7, 9, 12]; // Base, minor 3rd, perfect 4th, minor 6th, minor 7th, octave
+                const intervals = [0, 3, 5, 7, 10, 12]; // Base, minor 3rd, perfect 4th, perfect 5th, minor 7th, octave
                 
                 // Calculate all notes
                 const notes = intervals.map(interval => this.calculateNote(newKey, interval));
