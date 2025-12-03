@@ -43,7 +43,14 @@ An interactive web-based Native American Flute simulator with keyboard controls 
 
 ## GitHub Pages
 
-This site is configured for GitHub Pages. Simply enable GitHub Pages in your repository settings and point it to the `main` branch.
+This site is configured for GitHub Pages. To enable it:
+
+1. Go to [Repository Settings](https://github.com/node-dojo/flute-simulator/settings/pages)
+2. Under "Source", select **Deploy from a branch**
+3. Choose **main** branch and **/ (root)** folder
+4. Click **Save**
+
+Once enabled, the site will be live at: **https://node-dojo.github.io/flute-simulator/**
 
 ## License
 
