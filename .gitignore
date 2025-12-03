@@ -24,3 +24,6 @@ ENV/
 *.tmp
 *.log
 
+# Large files
+*.blend
+
